@@ -1,0 +1,14 @@
+# files
+*.log
+**/.DS_Store
+.env
+.git
+fastapi_sound_recommender.db
+fastapi_sound_recommender_test.db
+
+# directories
+__pycache__/
+.idea/
+.pytest_cache/
+.vscode/
+venv/
