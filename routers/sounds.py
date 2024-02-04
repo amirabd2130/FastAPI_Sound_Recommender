@@ -17,9 +17,9 @@ def get_list_of_sounds(limit: Annotated[int, Ge(0)] = 10, offset: Annotated[int,
     return Sound.get_list_of_sounds(limit, offset, db)
 
 
-@router.get("/get/{id}", status_code=status.HTTP_200_OK, response_model=schemas.Sound)
-def get_sound(id: str, db: Session = Depends(database.get_db)):
-    return Sound.get_sound(id, db)
+@router.get("/get", status_code=status.HTTP_200_OK, response_model=schemas.SoundFullResponse)
+def get_sound(soundId: str, db: Session = Depends(database.get_db)):
+    return Sound.get_sound(soundId, db)
 
 
 @router.get("/recommended", status_code=status.HTTP_200_OK, response_model=Union[schemas.SoundFullResponse, dict])

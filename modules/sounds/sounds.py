@@ -39,17 +39,17 @@ class Sound():
                 db.commit()
             return {"data": data}
 
-    def get_sound(id: str, db: Session):
-        if not id:
+    def get_sound(soundId: str, db: Session):
+        if not soundId:
             raise exceptions.BAD_REQUEST_EXCEPTION
         else:
             data = db.query(models.Sound).where(
-                models.Sound.id == id).first()
+                models.Sound.id == soundId).first()
 
             if not data:
                 raise exceptions.NOT_FOUND_EXCEPTION
             else:
-                return {"data": data}
+                return {"data": [data]}
 
     def get_list_of_sounds(limit: int, offset: int, db: Session):
         total_records = Sound.get_record_count(db)

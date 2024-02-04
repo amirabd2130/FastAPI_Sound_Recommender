@@ -1,31 +1,5 @@
 testData = {
-    "sound": [
-        {
-            "title": "Smells Like Teen Spirit",
-            "genres": ["Grunge", "Alternative"],
-            "bpm": 120,
-            "duration_in_seconds": 300,
-            "credits": [
-                {
-                    "name": "Nirvana",
-                    "role": "Band"
-                }
-            ]
-        }
-    ],
     "sounds": [
-        {
-            "title": "Wannabe",
-            "genres": ["Pop"],
-            "bpm": 110,
-            "duration_in_seconds": 200,
-            "credits": [
-                {
-                    "name": "Spice Girls",
-                    "role": "Band"
-                }
-            ]
-        },
         {
             "title": "I Want It That Way",
             "genres": ["Pop"],
@@ -384,5 +358,42 @@ testData = {
             "title": "playlist-3",
             "sounds": []
         }
-    ]
+    ],
+    "add_sound": {
+        "data": [
+
+            {
+                "title": "Smells Like Teen Spirit",
+                "genres": ["Grunge", "Alternative"],
+                "bpm": 120,
+                "duration_in_seconds": 300,
+                "credits": [
+                    {
+                        "name": "Nirvana",
+                        "role": "Band"
+                    }
+                ]
+            },
+            {
+                "title": "Wannabe",
+                "genres": ["Pop"],
+                "bpm": 110,
+                "duration_in_seconds": 200,
+                "credits": [
+                    {
+                        "name": "Spice Girls",
+                        "role": "Band"
+                    }
+                ]
+            }
+        ]
+    },
+    "add_playlist": {
+        "data": [
+            {
+                "title": "playlist-4",
+                "sounds": []
+            }
+        ]
+    },
 }
