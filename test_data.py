@@ -361,16 +361,19 @@ testData = {
     ],
     "add_sound": {
         "data": [
-
             {
-                "title": "Smells Like Teen Spirit",
+                "title": "The Man Who Sold The World",
                 "genres": ["Grunge", "Alternative"],
                 "bpm": 120,
                 "duration_in_seconds": 300,
                 "credits": [
                     {
+                        "name": "David Bowie",
+                        "role": "Original Artist"
+                    },
+                    {
                         "name": "Nirvana",
-                        "role": "Band"
+                        "role": "Cover Artist"
                     }
                 ]
             },

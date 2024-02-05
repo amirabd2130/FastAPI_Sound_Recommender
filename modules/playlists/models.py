@@ -1,5 +1,7 @@
+from datetime import datetime
+
 from include.database import Base
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import relationship
 
@@ -11,6 +13,7 @@ class PlaylistSounds(Base):
     sound_id = Column(ForeignKey('sounds.id'), primary_key=True)
     position = Column(Integer, nullable=False)
     recommended = Column(Integer, default=0)
+    recommended_at = Column(DateTime, default=datetime.now, nullable=False)
 
     playlists = relationship("Playlist", back_populates="sounds")
     sounds = relationship("Sound", back_populates="playlists")

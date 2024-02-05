@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 
 from include import exceptions, models, schemas
 from sqlalchemy import func
@@ -79,7 +80,9 @@ class Sound():
                 data = []
                 playlistSound = db.query(models.PlaylistSounds).where(
                     models.PlaylistSounds.playlist_id == playlistId).order_by(
-                        models.PlaylistSounds.recommended.asc()).order_by(func.random()).first()
+                        models.PlaylistSounds.recommended.asc()).order_by(
+                        models.PlaylistSounds.recommended_at.asc()).order_by(
+                        func.random()).first()
                 if playlistSound:
                     sound = db.query(models.Sound).where(
                         models.Sound.id == playlistSound.sound_id).first()
@@ -87,7 +90,8 @@ class Sound():
                         db.query(models.PlaylistSounds).where(
                             models.PlaylistSounds.playlist_id == playlistId).where(
                             models.PlaylistSounds.sound_id == playlistSound.sound_id).update({
-                                'recommended': playlistSound.recommended+1})
+                                'recommended': playlistSound.recommended+1,
+                                'recommended_at': datetime.now()})
                         db.commit()
                         data.append(sound)
                 return {"data": data}

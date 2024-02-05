@@ -198,6 +198,23 @@ def test_sounds_recommended():
     assert response["data"][0]["title"] != ""
 
 
+def test_sounds_recommended__check_repeat():
+    playlistId = TEST_DATA_ADD_PLAYLIST_IDS[0]
+    response = client.get(f"/sounds/recommended?playlistId={playlistId}")
+    assert response.status_code == 200
+    response = response.json()
+    assert response["data"][0]["title"] != ""
+    firstResponseTitle = response["data"][0]["title"]
+
+    response = client.get(f"/sounds/recommended?playlistId={playlistId}")
+    assert response.status_code == 200
+    response = response.json()
+    assert response["data"][0]["title"] != ""
+    secondResponseTitle = response["data"][0]["title"]
+
+    assert firstResponseTitle != secondResponseTitle
+
+
 def test_finish():
     # delete all the tables from test db
     models.Base.metadata.drop_all(bind=engine)
