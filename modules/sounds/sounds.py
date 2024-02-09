@@ -1,3 +1,4 @@
+import asyncio
 import uuid
 from datetime import datetime
 
@@ -8,10 +9,10 @@ from sqlalchemy.orm import Session
 
 class Sound():
 
-    def get_record_count(db: Session):
+    def get_record_count(self, db: Session):
         return db.query(models.Sound).count()
 
-    def add_sound(request: schemas.SoundCreateRequest, db: Session):
+    def add_sound(self, request: schemas.SoundCreateRequest, db: Session):
         if not request or not hasattr(request, "data"):
             raise exceptions.BAD_REQUEST_EXCEPTION
         else:
@@ -40,7 +41,7 @@ class Sound():
                 db.commit()
             return {"data": data}
 
-    def get_sound(soundId: str, db: Session):
+    def get_sound(self, soundId: str, db: Session):
         if not soundId:
             raise exceptions.BAD_REQUEST_EXCEPTION
         else:
@@ -52,8 +53,8 @@ class Sound():
             else:
                 return {"data": [data]}
 
-    def get_list_of_sounds(limit: int, offset: int, db: Session):
-        total_records = Sound.get_record_count(db)
+    def get_list_of_sounds(self, limit: int, offset: int, db: Session):
+        total_records = self.get_record_count(db)
 
         data = db.query(models.Sound).order_by(
             models.Sound.title.asc()).offset(offset).limit(limit).all()
@@ -68,7 +69,7 @@ class Sound():
             }
         }
 
-    def get_recommendation(playlistId: str, db: Session):
+    def get_recommendation(self, playlistId: str, db: Session):
         if not playlistId:
             raise exceptions.BAD_REQUEST_EXCEPTION
         else:
@@ -87,11 +88,19 @@ class Sound():
                     sound = db.query(models.Sound).where(
                         models.Sound.id == playlistSound.sound_id).first()
                     if sound:
-                        db.query(models.PlaylistSounds).where(
-                            models.PlaylistSounds.playlist_id == playlistId).where(
-                            models.PlaylistSounds.sound_id == playlistSound.sound_id).update({
+                        details = {
+                            "playlist_d": playlistId,
+                            "sound_id": playlistSound.sound_id,
+                            "updates": {
                                 'recommended': playlistSound.recommended+1,
-                                'recommended_at': datetime.now()})
-                        db.commit()
+                                'recommended_at': datetime.now()}
+                        }
                         data.append(sound)
+                        self.update_recommended_sound(details, db)
                 return {"data": data}
+
+    def update_recommended_sound(self, details: dict, db: Session):
+        db.query(models.PlaylistSounds).where(
+            models.PlaylistSounds.playlist_id == details["playlist_d"]).where(
+            models.PlaylistSounds.sound_id == details["sound_id"]).update(details["updates"])
+        db.commit()

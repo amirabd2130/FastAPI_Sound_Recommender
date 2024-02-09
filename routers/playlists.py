@@ -12,4 +12,4 @@ router = APIRouter(
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.PlaylistCreateResponse)
 def add_playlist(request: schemas.PlaylistCreateRequest, db: Session = Depends(database.get_db)):
-    return Playlist.add_playlist(request, db)
+    return Playlist().add_playlist(request, db)

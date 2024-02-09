@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 
 class Playlist():
-    def add_playlist(request: schemas.PlaylistCreateRequest, db: Session):
+    def add_playlist(self, request: schemas.PlaylistCreateRequest, db: Session):
         if not request or not hasattr(request, "data"):
             raise exceptions.BAD_REQUEST_EXCEPTION
         else:

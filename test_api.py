@@ -1,4 +1,6 @@
+import copy
 import json
+
 from fastapi.testclient import TestClient
 from include import models
 from include.database import get_db
@@ -6,7 +8,6 @@ from main import app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from test_data import testData
-import copy
 
 FASTAPI_SOUND_RECOMMENDER_TEST = "sqlite:///fastapi_sound_recommender_test.db"
 

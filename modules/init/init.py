@@ -7,7 +7,7 @@ from test_data import testData
 
 class Init():
 
-    def add_test_data(db: Session):
+    def add_test_data(self, db: Session):
         soundIds = ["",]
         for item in testData["sounds"]:
             newSound = models.Sound(
@@ -46,7 +46,7 @@ class Init():
             }
         }
 
-    def delete_all_data(db: Session):
+    def delete_all_data(self, db: Session):
         records = db.query(models.Credit).where(True)
         if records:
             records.delete()

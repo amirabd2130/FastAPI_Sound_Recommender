@@ -24,6 +24,7 @@ A simple sound library API implemented using FastAPI. The available endpoints ar
 
 app = FastAPI(
     title="FastAPI - Sound Recommender",
+
     description=DESCRIPTION,
     version="1.0.0",
     contact={
