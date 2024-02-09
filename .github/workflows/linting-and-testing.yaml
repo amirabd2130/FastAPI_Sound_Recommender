@@ -1,0 +1,43 @@
+name: Linting & Testing
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  FASTAPI_SOUND_RECOMMENDER_DATABASE_URL: sqlite:///fastapi_sound_recommender
+
+jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - name: Install Deps
+        run: |
+          pip install -r requirements.txt
+          pip install httpx
+      - name: Lint
+        run: pylint .  --fail-under=10.0
+
+  testing:
+    needs: linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - name: Install Deps
+        run: |
+          pip install -r requirements.txt
+          pip install httpx
+      - name: Run Tests
+        run: python3 -m pytest
